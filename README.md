@@ -1,15 +1,16 @@
-# Zadanie z Metody Elementów skończonych na labolatoria z Równań różniczkowych i różnicowych
+# Zadanie z Metody Elementów Skończonych na laboratoria z Równań różniczkowych i różnicowych
 ### Łukasz Wala, semestr 2021/22
 ---
 
-W tym repozytorium znajduje się [opis problemu oraz wstępne obliczenia](mes_opracowanie.pdf), oraz program napisan w języku Julia przygotowujący (tzn. wyliczający całki) macierz układu równań do metody Galerkina, a następnie go rozwiącujący.
+W tym repozytorium znajduje się [opis problemu oraz wstępne obliczenia](mes_opracowanie.pdf), oraz program napisany w języku Julia przygotowujący (tzn. wyliczający całki) macierz układu równań, a następnie go rozwiązujący.
 
-Do uruchomieniu potrzebny jest kompilator Julii oraz pakiet Plots, który można pobrać przez Julia REPL (interaktywne narzędzie do ewaluacji kodu w konsoli):
+Do uruchomieniu potrzebny jest [kompilator Julii](https://julialang.org/downloads/) oraz pakiet [Plots](https://docs.juliaplots.org/latest/), który można pobrać przez Julia REPL (interaktywne narzędzie do ewaluacji kodu w konsoli):
 ```
-using Pkg
-Pkg.add("Plots")
+[user@$host ~]$ julia
+julia> using Pkg
+julia> Pkg.add("Plots")
 ```
 Program uruchomić można przez:
 ```
-julia mes_solver.jl
+[user@$host ~/AGH-RRIR-MES]$ julia mes_solver.jl
 ```
