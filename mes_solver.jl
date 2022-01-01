@@ -1,11 +1,9 @@
 #=
 FEM problem solution for RRIR labs
-Description in opracowanie_mes.pdf in this repo (in polish)
+Description in opracowanie_mes.pdf in this repo (in Polish)
 Author: Łukasz Wala
 
-to use Plots package, it needs to be installed via Julia CLI tool called REPL with these commands:
-    using Pkg
-    Pkg.add("Plots")
+to use Plots package, it needs to be installed via Julia REPL (described in README.md)
 =#
 
 using Plots
@@ -32,7 +30,7 @@ function gaussian_elimination(X::Array, b::Array)
     return B
 end
 
-# return i-th point
+# returns i-th point
 x_i(i) = elemSize * i
 
 # function rho
@@ -89,8 +87,8 @@ end
 
 # preprocesing of the left side matrix of the system of equations
 function X_preprocesing(X::Array)
-    # values above main diagonal
-    # coppied to symetrical positions
+    # values above the main diagonal
+    # copied to symetrical positions
     for i = 1:n-2
         f(x) = e_i(i)(x) * e_i(j)(x)
         X[i,i+1] = -1 * integrate(f, x_i(i), x_i(i+1))
