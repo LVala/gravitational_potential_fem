@@ -1,4 +1,4 @@
-# Zadanie z Metody Elementów Skończonych na laboratoria z Równań różniczkowych i różnicowych
+# Zadanie z Metody Elementów Skończonych na laboratoria z Równań Różniczkowych i Różnicowych
 ### Łukasz Wala, semestr 2021/22
 ---
 W tym repozytorium znajduje się [opis problemu, wstępne obliczenia](mes_opracowanie.pdf) oraz program napisany w języku Julia przygotowujący macierz (tzn. obliczający jej elementy) układu równań, a następnie go rozwiązujący.
