@@ -13,7 +13,7 @@ Program uruchomić można przez:
 ```
 [user@$host ~/AGH-RRIR-MES]$ julia mes_solver.jl
 ```
-Wymagane jest podanie jednego parametru: ilości elementów (punktów podziałowych - 1) na które zostanie podzielony przedział:
+Wymagane jest podanie jednego parametru: liczby elementów (punktów podziałowych - 1) na które zostanie podzielony przedział:
 ```
 >>> 100
 ```
