@@ -90,14 +90,14 @@ function X_preprocesing(X::Array)
     # values above the main diagonal
     # copied to symetrical positions
     for i = 1:n-2
-        f(x) = e_i(i)(x) * e_i(j)(x)
-        X[i,i+1] = -1 * integrate(f, x_i(i), x_i(i+1))
+        f_1(x) = e_i(i)(x) * e_i(i+1)(x)
+        X[i,i+1] = -1 * integrate(f_1, x_i(i), x_i(i+1))
         X[i+1,i] = X[i,i+1]
     end
 
     # values on the main diagonal
-    f(x) = e_i(1)(x) * e_i(1)(x)
-    X[1,1] = -1 * integrate(f, x_i(0), x_i(2))
+    f_2(x) = e_i(1)(x) * e_i(1)(x)
+    X[1,1] = -1 * integrate(f_2, x_i(0), x_i(2))
     for i = 2:n-1
         X[i,i] = X[1,1]
     end
