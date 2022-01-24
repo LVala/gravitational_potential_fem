@@ -107,8 +107,8 @@ end
 function Y_preprocesing(Y::Array)
     for i = 1:n-1
         f(x) = e_i(i)(x) * p(x)
-        res_1 = 4 * pi * G * (integrate(f, x_i(i-1), x_i(i)) + integrate(f, x_i(i), x_i(i+1)))
-        res_2 = (-1/3) * (integrate(de_i(i), x_i(i-1), x_i(i)) + integrate(de_i(i), x_i(i), x_i(i+1)))
+        res_1 = 4 * pi * G * integrate(f, x_i(i-1), x_i(i+1))
+        res_2 = (-1/3) * integrate(de_i(i), x_i(i-1), x_i(i+1))
         Y[i] = res_1 + res_2
     end
 end
@@ -151,6 +151,7 @@ function visualize(f)
         label="Θ(x)",
         markershape = :auto,
         markersize = 3,
+        margin = 3Plots.mm,
         seriescolor = "green",
         linecolor = "green",
         size=(1300,700))
