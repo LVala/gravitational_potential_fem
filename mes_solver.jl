@@ -23,8 +23,8 @@ function gaussian_elimination(X::Array, b::Array)
     B[end] /= A[end, end-1]
     for i = row_num-1:-1:1
         pivot = A[i,i]
-        B[i] -= sum(A[i,i+1:end-1] .* b[i+1:end])
-        b[i] /= pivot
+        B[i] -= sum(A[i,i+1:end-1] .* B[i+1:end])
+        B[i] /= pivot
     end
 
     return B
@@ -46,7 +46,7 @@ end
 function e_i(i::Integer)
     return function(x)
         if x > x_i(i-1) && x <= x_i(i)
-            return (x - x_i(i)) / elemSize
+            return (x - x_i(i-1)) / elemSize
         elseif x > x_i(i) && x < x_i(i+1)
             return (x_i(i+1) - x) / elemSize
         else
@@ -77,12 +77,12 @@ function integrate(f, a::Number, b::Number)
     # new_x calculates new point after interval change
     new_x(x) = (b-a)/2 * x + (a+b)/2
 
-    x1 = new_x(sqrt((3/7) - (2/7) * sqrt(6/5)))
-    x2 = -x1
-    x3 = new_x(sqrt((3/7) + (2/7) * sqrt(6/5)))
+    x1 = sqrt((3/7) - (2/7) * sqrt(6/5))
+    x2 = x1
+    x3 = sqrt((3/7) + (2/7) * sqrt(6/5))
     x4 = -x3
 
-    return (b-a)/2 * (w12 * f(x1) + w12 * f(x2) + w34 * f(x3) + w34 * f(x4))
+    return (b-a)/2 * (w12 * f(new_x(x1)) + w12 * f(new_x(x2)) + w34 * f(new_x(x3)) + w34 * f(new_x(x4)))
 end
 
 # preprocesing of the left side matrix of the system of equations
@@ -90,14 +90,14 @@ function X_preprocesing(X::Array)
     # values above the main diagonal
     # copied to symetrical positions
     for i = 1:n-2
-        f_1(x) = e_i(i)(x) * e_i(i+1)(x)
-        X[i,i+1] = -1 * integrate(f_1, x_i(i), x_i(i+1))
+        f_1(x) = de_i(i)(x) * de_i(i+1)(x)
+        X[i,i+1] = -integrate(f_1, x_i(i), x_i(i+1))
         X[i+1,i] = X[i,i+1]
     end
 
-    # values on the main diagonal
-    f_2(x) = e_i(1)(x) * e_i(1)(x)
-    X[1,1] = -1 * integrate(f_2, x_i(0), x_i(2))
+    #values on the main diagonal
+    f_2(x) = de_i(1)(x) * de_i(1)(x)
+    X[1,1] = -integrate(f_2, x_i(0), x_i(2))
     for i = 2:n-1
         X[i,i] = X[1,1]
     end
@@ -106,9 +106,10 @@ end
 # preprocesing of the right side matrix of the system of equations
 function Y_preprocesing(Y::Array)
     for i = 1:n-1
-        f(x) = e_i(i)(x) * p(x)
-        res_1 = 4 * pi * G * integrate(f, x_i(i-1), x_i(i+1))
-        res_2 = (-1/3) * integrate(de_i(i), x_i(i-1), x_i(i+1))
+        f_1(x) = e_i(i)(x) * p(x)
+        res_1 = 4 * pi * G * (integrate(f_1, x_i(i-1), x_i(i)) + integrate(f_1, x_i(i), x_i(i+1)))
+        f_2(x) = (-1/3) * de_i(i)(x)
+        res_2 = (integrate(f_2, x_i(i-1), x_i(i)) + integrate(f_2, x_i(i), x_i(i+1)))
         Y[i] = res_1 + res_2
     end
 end
@@ -124,6 +125,7 @@ function fem()
     
     println("Solving system of equations...")
     B = gaussian_elimination(X, Y)
+
     return function(x)
         res = 5 - (x/3)
         for i = 1:n-1
@@ -165,7 +167,7 @@ const n = parse(Int32, readline())
 const rangeStart = 0
 const rangeEnd = 3
 const elemSize = (rangeEnd - rangeStart)/n
-const G = 6.674e-11
+const G = 6.6743e-11
 
 # solving FEM
 theta = fem()
