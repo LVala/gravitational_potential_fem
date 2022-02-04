@@ -1,19 +1,19 @@
-# Zadanie z Metody Elementów Skończonych na laboratoria z Równań Różniczkowych i Różnicowych
-### Łukasz Wala, semestr 2021/22
----
-W tym repozytorium znajduje się [opis problemu, wstępne obliczenia](mes_opracowanie.pdf) oraz program napisany w języku Julia przygotowujący macierz (tzn. obliczający jej elementy) układu równań, a następnie go rozwiązujący.
+# Solution of gravitational potential differential equation using finite element method project for Differential and Difference Equations Course
+### Łukasz Wala, 2021/22 winter semester, Computer Science WIEiT AGH UST
 
-Do uruchomieniu potrzebny jest [kompilator Julii](https://julialang.org/downloads/) oraz pakiet [Plots](https://docs.juliaplots.org/latest/), który można pobrać przez Julia REPL (interaktywne narzędzie do ewaluacji kodu w konsoli):
+This repository contains [problem description (in Polish)] and program written in Julia programming language that preproceses the equation matrix (mainly by solving some integrals by Gauss–Legendre quadrature) and solves the system of equations using Gaussian elimination.
+
+To run you need [Julia compiler](https://julialang.org/downloads/) and [Plots](https://docs.juliaplots.org/latest/) package which can be downloaded via Julia REPL:
 ```
 [user@$host ~]$ julia
 julia> using Pkg
 julia> Pkg.add("Plots")
 ```
-Program uruchomić można przez:
+Program can be run from the terminal:
 ```
 [user@$host ~/AGH-RRIR-MES]$ julia mes_solver.jl
 ```
-Wymagane jest podanie jednego parametru: liczby elementów (punktów podziałowych - 1) na które zostanie podzielony przedział:
+It is necessary to input one parameter: number of elements (points of division - 1) into which interval will be divided:
 ```
 >>> 100
 ```
