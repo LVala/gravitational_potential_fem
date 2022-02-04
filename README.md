@@ -13,7 +13,7 @@ Program can be run from the terminal:
 ```
 [user@$host ~/AGH-RRIR-MES]$ julia mes_solver.jl
 ```
-It is necessary to input one parameter: number of elements (points of division - 1) into which interval will be divided:
+It is necessary to input one parameter: number of elements (points of division - 1) into which the interval will be divided:
 ```
 >>> 100
 ```
